@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/_1.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[55.92042628011379,92.62755373397954],[56.12278574243046,93.09116143289201]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OSMStandard_0');
+        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        function pop__1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CAD_N'] !== null ? autolinker.link(feature.properties['CAD_N'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STATUS'] !== null ? autolinker.link(feature.properties['STATUS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['C_COST'] !== null ? autolinker.link(feature.properties['C_COST'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AREA'] !== null ? autolinker.link(feature.properties['AREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['UTL_ID'] !== null ? autolinker.link(feature.properties['UTL_ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['UTL_DOC'] !== null ? autolinker.link(feature.properties['UTL_DOC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style__1_0(feature) {
+            switch(String(feature.properties['STATUS'])) {
+                case '1':
+                    return {
+                pane: 'pane__1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(167,215,112,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '5':
+                    return {
+                pane: 'pane__1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(240,158,158,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '6':
+                    return {
+                pane: 'pane__1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(130,175,175,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane__1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(133,224,35,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane__1');
+        map.getPane('pane__1').style.zIndex = 401;
+        map.getPane('pane__1').style['mix-blend-mode'] = 'normal';
+        var layer__1 = new L.geoJson(json__1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json__1',
+            layerName: 'layer__1',
+            pane: 'pane__1',
+            onEachFeature: pop__1,
+            style: style__1_0,
+        });
+        bounds_group.addLayer(layer__1);
+        map.addLayer(layer__1);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'КД Статус<br /><table><tr><td style="text-align: center;"><img src="legend/_1_10.png" /></td><td>1</td></tr><tr><td style="text-align: center;"><img src="legend/_1_51.png" /></td><td>5</td></tr><tr><td style="text-align: center;"><img src="legend/_1_62.png" /></td><td>6</td></tr><tr><td style="text-align: center;"><img src="legend/_1_3.png" /></td><td></td></tr></table>': layer__1,"OSM Standard": layer_OSMStandard_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
